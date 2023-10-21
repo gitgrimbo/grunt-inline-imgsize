@@ -8,6 +8,7 @@ module.exports = function(grunt) {
         // only match local files
         img: /<img[^\>]+src=['"](?!http:|https:|\/\/|data:image)([^"']+)["'][^\>]*>/gm,
         src: /src=['"]([^"']+)["']/m,
+        nosize: /\snosize(\s|>)/m,
         size: /(height|width)=/
     };
 
@@ -56,6 +57,12 @@ module.exports = function(grunt) {
 
                     // skip this img if the size is already specified
                     if (tag.match(regexes.size)) {
+                        return;
+                    }
+
+                    // skip this img if the nosize attr is present
+                    if (tag.match(regexes.nosize)) {
+                        console.log("NOSIZE", tag);
                         return;
                     }
 
