@@ -1,4 +1,4 @@
-var inlineImgSize = require('./inline-imgsize-standalone');
+var inlineImgSize = require('../src/inline-imgsize-standalone');
 
 module.exports = function plugin(grunt) {
 
