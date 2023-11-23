@@ -1,4 +1,5 @@
 var fs        = require('fs'),
+    nodePath  = require("path"),
     imagesize = require('imagesize');
 
 module.exports = function inlineImgSize(contents, path) {
@@ -41,7 +42,12 @@ module.exports = function inlineImgSize(contents, path) {
         }
 
         var src = tag.match(regexes.src)[1];
+
+        // ensure forward slashes...
+        path = path.split(nodePath.sep).join(nodePath.posix.sep);
+        // ...for the following regex
         var imgpath = path.replace(/[^\/]+$/, '') + src;
+
         var dimensions = get_image_dimensions(fs.readFileSync(imgpath));
         if (!dimensions) {
             return;
